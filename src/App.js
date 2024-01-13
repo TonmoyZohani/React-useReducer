@@ -8,9 +8,13 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-  switch ((action.type)) {
+  switch (action.type) {
     case "dataReceived":
-      return { ...state, questions: action.payload };
+      return { ...state, questions: action.payload, status: "ready" };
+    case "dataFailed":
+      return { ...state, status: "error" };
+    default:
+      throw new Error("Action Unknown");
   }
 };
 
@@ -20,7 +24,8 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:8000/questions`)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }));
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .then((err) => dispatch({type:"dataFailed"}));
   }, []);
 
   console.log(state);
