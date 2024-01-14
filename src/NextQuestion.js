@@ -1,4 +1,5 @@
 import React from "react";
+thsi
 
 const NextQuestion = ({ dispatch, answer }) => {
   console.log(answer);
