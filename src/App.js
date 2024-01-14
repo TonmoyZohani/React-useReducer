@@ -10,6 +10,7 @@ const initialState = {
   questions: [],
   status: "loading",
   index: 0,
+  answer: null,
 };
 
 const reducer = (state, action) => {
@@ -20,6 +21,8 @@ const reducer = (state, action) => {
       return { ...state, status: "error" };
     case "start":
       return { ...state, status: "active" };
+    case "newAnswer":
+      return { ...state, answer: action.payload };
     default:
       throw new Error("Action Unknown");
   }
@@ -28,7 +31,7 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { questions, status, index } = state;
+  const { questions, status, index, answer } = state;
   let questionsLength = questions.length;
 
   console.log(questions);
@@ -41,7 +44,7 @@ function App() {
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
-  console.log(state);
+  console.log(answer);
 
   return (
     <div className="app">
@@ -52,7 +55,13 @@ function App() {
         {status === "ready" && (
           <StartScreen questionsLength={questionsLength} dispatch={dispatch} />
         )}
-        {status === "active" && <Questions questions={questions[0]} />}
+        {status === "active" && (
+          <Questions
+            questions={questions[0]}
+            answer={answer}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );
