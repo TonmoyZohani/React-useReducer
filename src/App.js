@@ -9,6 +9,7 @@ import Questions from "./Questions.js";
 const initialState = {
   questions: [],
   status: "loading",
+  index: 0,
 };
 
 const reducer = (state, action) => {
@@ -27,7 +28,7 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { questions, status } = state;
+  const { questions, status, index } = state;
   let questionsLength = questions.length;
 
   console.log(questions);
@@ -51,7 +52,7 @@ function App() {
         {status === "ready" && (
           <StartScreen questionsLength={questionsLength} dispatch={dispatch} />
         )}
-        {status === "active" && <Questions />}
+        {status === "active" && <Questions questions={questions[0]} />}
       </Main>
     </div>
   );

@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
 
-const Questions = () => {
+const Questions = ({ questions }) => {
+  console.log(questions);
+
   return (
-    <div>Questions</div>
-  )
-}
+    <div>
+      <h4>{questions?.question}</h4>
+      <div className="options">
+        {questions?.options.map((option) => (
+          <button className="btn btn-option" key={option}>
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-export default Questions
+export default Questions;
