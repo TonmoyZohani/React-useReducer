@@ -11,6 +11,7 @@ const initialState = {
   status: "loading",
   index: 0,
   answer: null,
+  points: 0,
 };
 
 const reducer = (state, action) => {
@@ -22,7 +23,15 @@ const reducer = (state, action) => {
     case "start":
       return { ...state, status: "active" };
     case "newAnswer":
-      return { ...state, answer: action.payload };
+      const currentQus = state.questions[state.index];
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          currentQus.correctOption === action.payload
+            ? currentQus?.points
+            : state?.points,
+      };
     default:
       throw new Error("Action Unknown");
   }
@@ -34,9 +43,6 @@ function App() {
   const { questions, status, index, answer } = state;
   let questionsLength = questions.length;
 
-  console.log(questions);
-  console.log(status);
-
   useEffect(() => {
     fetch(`http://localhost:8000/questions`)
       .then((res) => res.json())
@@ -44,7 +50,7 @@ function App() {
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
-  console.log(answer);
+  console.log(state);
 
   return (
     <div className="app">
@@ -57,7 +63,7 @@ function App() {
         )}
         {status === "active" && (
           <Questions
-            questions={questions[0]}
+            questions={questions[index]}
             answer={answer}
             dispatch={dispatch}
           />
