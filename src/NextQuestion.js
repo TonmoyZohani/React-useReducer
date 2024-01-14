@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
 
-const NextQuestion = () => {
+const NextQuestion = ({ dispatch, answer }) => {
+  console.log(answer);
+
+  if (answer === null) {
+    return;
+  }
+
   return (
-    <div>NextQuestion</div>
-  )
-}
+    <button
+      className="btn btn-ui"
+      onClick={() => dispatch({ type: "nextQuestion" })}
+    >
+      Next
+    </button>
+  );
+};
 
-export default NextQuestion
+export default NextQuestion;

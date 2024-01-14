@@ -71,7 +71,8 @@ function App() {
               answer={answer}
               dispatch={dispatch}
             />
-            <NextQuestion dispatch={dispatch} />
+
+            <NextQuestion dispatch={dispatch} answer={answer} />
           </>
         )}
       </Main>
