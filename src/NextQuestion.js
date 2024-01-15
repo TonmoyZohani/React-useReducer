@@ -1,5 +1,5 @@
 import React from "react";
-thsi
+// thsi
 
 const NextQuestion = ({ dispatch, answer }) => {
   console.log(answer);

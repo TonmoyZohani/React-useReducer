@@ -6,6 +6,7 @@ import Error from "./Error.js";
 import StartScreen from "./StartScreen.js";
 import Questions from "./Questions.js";
 import NextQuestion from "./NextQuestion.js";
+import Progress from "./Progress.js";
 
 const initialState = {
   questions: [],
@@ -66,6 +67,7 @@ function App() {
         )}
         {status === "active" && (
           <>
+            <Progress questions={questions} index={index} />
             <Questions
               questions={questions[index]}
               answer={answer}
