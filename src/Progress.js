@@ -14,7 +14,7 @@ const Progress = ({ questions, index, points, maxPossiblePoints, answer }) => {
       </p>
 
       <p>
-        <strong>{index + 1}</strong>/{maxPossiblePoints}
+        <strong>{points}</strong>/{maxPossiblePoints}
       </p>
     </header>
   );
