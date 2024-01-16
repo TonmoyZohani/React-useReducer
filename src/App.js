@@ -51,6 +51,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         secondsRemain: state.secondsRemain - 1,
+        status: state.secondsRemain === 0 ? "finished" : state.status,
       };
     case "restart":
       return {
