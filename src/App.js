@@ -8,6 +8,7 @@ import Questions from "./Questions.js";
 import NextQuestion from "./NextQuestion.js";
 import Progress from "./Progress.js";
 import FinishScreen from "./FinishScreen.js";
+import Timer from "./Timer.js";
 
 const initialState = {
   questions: [],
@@ -16,6 +17,7 @@ const initialState = {
   answer: null,
   points: 0,
   highScore: 0,
+  secondsRemain: 10,
 };
 
 const reducer = (state, action) => {
@@ -45,6 +47,8 @@ const reducer = (state, action) => {
         highScore:
           state.points > state.highScore ? state.points : state.highScore,
       };
+    case "tick":
+      return "lol";
     case "restart":
       return {
         questions: state.questions,
@@ -62,7 +66,8 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { questions, status, index, answer, points, highScore } = state;
+  const { questions, status, index, answer, points, highScore, secondsRemain } =
+    state;
   let questionsLength = questions.length;
   let maxPossiblePoints = questions.reduce((acc, cur) => {
     return acc + cur.points;
@@ -102,6 +107,8 @@ function App() {
               answer={answer}
               dispatch={dispatch}
             />
+
+            <Timer secondsRemain={secondsRemain} />
 
             <NextQuestion
               dispatch={dispatch}
