@@ -37,6 +37,8 @@ const reducer = (state, action) => {
       };
     case "nextQuestion":
       return { ...state, index: state.index + 1, answer: null };
+    case "finish":
+      return { ...state, status: "finished" };
     default:
       throw new Error("Action Unknown");
   }
@@ -86,7 +88,13 @@ function App() {
               dispatch={dispatch}
             />
 
-            <NextQuestion dispatch={dispatch} answer={answer} points={points} />
+            <NextQuestion
+              dispatch={dispatch}
+              answer={answer}
+              points={points}
+              questions={questions}
+              index={index}
+            />
           </>
         )}
         {status === "finished" && (
