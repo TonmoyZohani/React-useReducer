@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const Timer = ({ secondsRemain }) => {
+const Timer = ({ secondsRemain, dispatch }) => {
+  useEffect(() => {
+    setInterval(() => {
+      dispatch({ type: "tick" });
+    }, 1000);
+  }, [dispatch]);
+
   return <div>{secondsRemain}</div>;
 };
 

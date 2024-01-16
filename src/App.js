@@ -48,7 +48,10 @@ const reducer = (state, action) => {
           state.points > state.highScore ? state.points : state.highScore,
       };
     case "tick":
-      return "lol";
+      return {
+        ...state,
+        secondsRemain: state.secondsRemain - 1,
+      };
     case "restart":
       return {
         questions: state.questions,
@@ -108,7 +111,7 @@ function App() {
               dispatch={dispatch}
             />
 
-            <Timer secondsRemain={secondsRemain} />
+            <Timer secondsRemain={secondsRemain} dispatch={dispatch} />
 
             <NextQuestion
               dispatch={dispatch}
